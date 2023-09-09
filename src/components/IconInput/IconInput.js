@@ -41,6 +41,11 @@ const IconInput = ({
       </label>
 
       <Wrapper width={width} style={inputSize}>
+        <NativeInput
+          placeholder={placeholder}
+          id="search"
+          style={inputSize}
+        />
         <IconWrapper size={inputSize.svgSize}>
           <Icon
             id={icon}
@@ -48,11 +53,6 @@ const IconInput = ({
             strokeWidth={inputSize.strokeWidth}
           />
         </IconWrapper>
-        <NativeInput
-          placeholder={placeholder}
-          id="search"
-          style={inputSize}
-        />
         <BackBoard width={width} style={inputSize}></BackBoard>
       </Wrapper>
     </>
@@ -64,8 +64,8 @@ const Wrapper = styled.div`
   width: ${(props) => props.width}px;
   padding-left: var(--paddingLeft);
   position: relative;
-  border-bottom: var(--bottomBorder) solid ${COLORS.black};
   height: var(--height);
+  border-bottom: var(--bottomBorder) solid ${COLORS.black};
 `;
 
 const IconWrapper = styled.div`
@@ -78,6 +78,10 @@ const IconWrapper = styled.div`
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
   color: ${COLORS.gray700};
+
+  ${Wrapper}:hover & {
+    color: ${COLORS.black};
+  }
 `;
 
 const NativeInput = styled.input`
@@ -96,6 +100,10 @@ const NativeInput = styled.input`
     font-weight: 400;
     font-size: var(--fontSize);
   }
+
+  ${Wrapper}:hover & {
+    color: ${COLORS.black};
+  }
 `;
 
 const BackBoard = styled.div`
@@ -106,12 +114,17 @@ const BackBoard = styled.div`
   width: ${(props) => props.width}px;
   height: var(--height);
 
+  &:focus {
+    outline-offset: 2px;
+    outline: 5px auto -webkit-focus-ring-color;
+  }
+
   ${IconWrapper}:focus + & {
     outline-offset: 2px;
     outline: 5px auto -webkit-focus-ring-color;
   }
 
-  ${NativeInput}:focus + & {
+  ${NativeInput}:focus ~ & {
     outline-offset: 2px;
     outline: 5px auto -webkit-focus-ring-color;
   }
